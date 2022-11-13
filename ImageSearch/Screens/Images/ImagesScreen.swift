@@ -6,6 +6,13 @@ struct ImagesScreen: View {
   
   var body: some View {
     
-    Text("Images")
+    ScrollView {
+      ForEach(viewModel.images) { image in
+        
+        Text(image.thumbnail)
+        
+      }
+    }
+    
   }
 }
