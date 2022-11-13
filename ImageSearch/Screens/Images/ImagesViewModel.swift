@@ -4,7 +4,7 @@ import Foundation
 
 class ImagesViewModel: ObservableObject {
   
-  @Published var images: [Image]  = []
+  @Published var images: [ShoppingResult]  = []
   
   var queryWord: String = "City"
   var baseURL: String = "https://serpapi.com"
@@ -12,19 +12,19 @@ class ImagesViewModel: ObservableObject {
   init() {
     
     Task {
-     
-      guard let imagesURL = URL(string: "\(baseURL)/search.json?q=\(queryWord)&tbm=isch&ijn=0") else {
+      
+      guard let imagesURL = URL(string: "https://serpapi.com/search.json?q=Apple&tbm=isch&ijn=0") else {
         throw AppError.custom(errorDescription: "Wrong URL")
       }
       
-      let imagesResource: Resource  = Resource<ImageResponse>(url: imagesURL, httpMethod: .get)
+      let imagesResource: Resource = Resource<ImageResponse>(url: imagesURL, httpMethod: .get)
       
       do {
-
-        let imagesResponse: ImageResponse   = try await NetworkService.shared.request(resource: imagesResource)
+        
+        let imagesResponse: ImageResponse = try await NetworkService.shared.request(resource: imagesResource)
         
         DispatchQueue.main.async {
-          self.images   = imagesResponse.docs
+          self.images = imagesResponse.docs
         }
         
       } catch {
