@@ -46,6 +46,7 @@ class NetworkService {
          error.code == NSURLErrorNotConnectedToInternet {
         throw AppError.network(type: .noInternet)
       } else if let _ = error as? DecodingError {
+        print(error)
         throw AppError.network(type: .parsing(error: error))
       } else {
         throw AppError.network(type: .unknown(error: error))
